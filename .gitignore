@@ -1,5 +1,9 @@
 data_cxr-images_128x128.zip
+labels_cxr-images.csv
 
 .ipynb_checkpoints/
+datasets/
+logs/
+models/
 data_cxr-images_128x128/
 
