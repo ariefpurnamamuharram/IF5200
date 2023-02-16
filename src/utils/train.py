@@ -32,10 +32,10 @@ class TrainUtils:
         if device is not None:
             self.device = torch.device(device)
             print('Using GPU!')
-            print('Device name:', torch.cuda.get_device_name(self.device), '\n')
+            print('Device name:', torch.cuda.get_device_name(self.device))
         else:
             self.device = torch.device('cpu')
-            print('Using CPU!\n')
+            print('Using CPU!')
 
     def train(self, dataloader, print_log: bool = False):
         

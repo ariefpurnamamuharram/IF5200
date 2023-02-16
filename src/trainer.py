@@ -116,4 +116,4 @@ def train_wrapper(model, trainer, train_dataloader, val_dataloader, test_dataloa
     print('Last train accuracy:', round(last_train_acc, 3))
     print('Last test accuracy:', round(last_test_acc, 3))
     
-    print("\nDone!\n")
+    print("\nDone!")
