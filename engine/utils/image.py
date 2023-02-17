@@ -40,8 +40,7 @@ def read_image(image_path: str) -> Image:
     
     # Return loaded image
     return im
-    
-    
+        
 def get_square_resize(im: Image, dim: int) -> Image:
     
     # Resize the image
