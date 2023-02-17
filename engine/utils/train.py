@@ -1,6 +1,7 @@
 import torch
 from torch import nn, optim
 from tqdm import tqdm
+from sklearn.metrics import confusion_matrix, classification_report
 
 
 class TrainUtils:
@@ -79,7 +80,7 @@ class TrainUtils:
         # Return loss history
         return (loss_history)
 
-    def test(self, dataloader, print_log: bool = False):
+    def test(self, dataloader, print_log: bool = False, conf_matrix: bool = False, clf_report: bool = False):
         
         model = self.model
         loss_fn = self.loss_fn
@@ -92,6 +93,7 @@ class TrainUtils:
         model.eval()
         
         test_loss, correct = 0, 0
+        global_pred, global_y = [], []
         
         with torch.no_grad():
             
@@ -102,9 +104,22 @@ class TrainUtils:
                 
                 # Make predictions
                 pred = model(X)
-            
+                
+                global_pred += pred.argmax(1).tolist()
+                global_y += y.tolist()
+                
                 test_loss += loss_fn(pred, y).item()
-                correct += (pred.argmax(1) == y).type(torch.float).sum().item()
+                correct += (pred.argmax(1) == y).type(torch.float).sum().item()   
+       
+        # Print confusion matrix:
+        if conf_matrix == True:
+            print('\nConfusion matrix:')
+            print(confusion_matrix(global_y, global_pred))
+        
+        # Print classification report
+        if clf_report == True:
+            print('\nClassification report:')
+            print(classification_report(global_y, global_pred))
     
         test_loss /= num_batches
         correct /= size

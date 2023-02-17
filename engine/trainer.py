@@ -76,7 +76,10 @@ def train_wrapper(model, trainer, train_dataloader, val_dataloader, test_dataloa
             
             # Evaluate model: get testing accuracy
             start = timer.time()
-            test_accuracy = trainer.test(test_dataloader, print_log=False)
+            if epoch == (epochs - 1):
+                test_accuracy = trainer.test(test_dataloader, print_log=False, conf_matrix=True, clf_report=True)
+            else:
+                test_accuracy = trainer.test(test_dataloader, print_log=False, conf_matrix=False, clf_report=False)
             last_test_acc = test_accuracy
             
             # Get elapsed time
