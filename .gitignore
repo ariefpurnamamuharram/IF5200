@@ -4,6 +4,7 @@ experiments.ipynb
 engine/__pycache__/
 engine/utils/__pycache__/
 datasets/
+enabled/
 logs/
 models/
 
