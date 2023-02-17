@@ -90,7 +90,7 @@ def train_wrapper(model, trainer, train_dataloader, val_dataloader, test_dataloa
             fh.write(f'{epoch}\t{train_accuracy}\t{test_accuracy}\n')
             
             # Save model
-            torch.save(model.state_dict(), model_filename)
+            torch.save(model, model_filename)
             print(f'Model {model_filename} stored!\n')
             
     train_history = pd.DataFrame(train_history, columns=['epoch', 'train_acc', 'test_acc'])

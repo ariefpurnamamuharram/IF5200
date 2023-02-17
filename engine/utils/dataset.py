@@ -1,6 +1,6 @@
-from PIL import Image
 from torch.utils.data import Dataset
-from torchvision import transforms as T
+
+from engine.utils.image import read_image, ToTensorTransform
 
 
 class CustomDataset(Dataset):
@@ -11,10 +11,7 @@ class CustomDataset(Dataset):
         
         self.data = data
         self.image_path = image_path
-        self.transform = T.Compose([
-            T.ToTensor(),
-            T.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-        ])
+        self.transformer = ToTensorTransform()
     
     def __len__(self):
         
@@ -26,8 +23,8 @@ class CustomDataset(Dataset):
         
         # Image preprocessing
         filename = data['filename']
-        image = Image.open(f'{self.image_path}/{filename}').convert('RGB')
-        image = self.transform(image)
+        image = read_image(f'{self.image_path}/{filename}')
+        image = self.transformer.transform(image)
         
         label = data['label']
         
