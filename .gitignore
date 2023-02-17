@@ -1,8 +1,8 @@
 experiments.ipynb
 
 .ipynb_checkpoints/
-src/__pycache__
-src/utils/__pycache__/
+engine/__pycache__/
+engine/utils/__pycache__/
 datasets/
 logs/
 models/
