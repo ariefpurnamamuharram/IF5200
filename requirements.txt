@@ -9,3 +9,4 @@ pillow==9.4.0
 torch
 torchvision
 torchaudio
+gradio==3.18.0
