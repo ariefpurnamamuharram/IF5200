@@ -3,6 +3,7 @@ experiments.ipynb
 gradio.ipynb
 
 .ipynb_checkpoints/
+env/
 engine/__pycache__/
 engine/utils/__pycache__/
 datasets/
