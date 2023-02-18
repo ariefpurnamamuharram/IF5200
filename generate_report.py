@@ -10,8 +10,9 @@ if __name__ == '__main__':
 
     # Argument parser
     parser = argparse.ArgumentParser()
-    parser.add_argument('--image', type=str, required=True)
-    parser.add_argument('--device', type=str, required=False)
+    parser.add_argument('-i', '--image', type=str,
+                        required=True, help='Image filename')
+    parser.add_argument('-d', '--device', type=str, required=False)
     args = parser.parse_args()
 
     # Device
