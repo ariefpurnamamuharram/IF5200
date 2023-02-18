@@ -1,1 +1,1 @@
-pip install -r requirements.txt --user --upgrade
+pip install -r requirements.txt --upgrade
