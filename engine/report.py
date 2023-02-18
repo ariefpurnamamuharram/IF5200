@@ -21,7 +21,7 @@ def generate_report(
         device: torch.device = torch.device('cpu')) -> str:
 
     # Read image
-    if type(img) == str:
+    if isinstance(img, str):
         img = read_image(img)
     img_segment1 = get_segment(img, 1)
     img_segment2 = get_segment(img, 2)
