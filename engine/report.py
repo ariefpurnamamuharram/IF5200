@@ -41,7 +41,7 @@ def generate_report(
             'model_cardiomegaly.pth'), map_location=device)
     model_effusion = torch.load(
         os.path.join(
-            MODELS_DIR, 
+            MODELS_DIR,
             'model_effusion.pth'), map_location=device)
 
     # Make inferences
