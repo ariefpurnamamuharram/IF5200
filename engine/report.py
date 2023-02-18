@@ -1,5 +1,6 @@
 import os
 import torch
+from PIL import Image
 
 from engine.inference import Inference
 from engine.utils.image import read_image, get_segment, ToTensorTransform
@@ -16,11 +17,12 @@ def build_report(cardiomegaly: int = 0, effusion: int = 0) -> str:
 
 
 def generate_report(
-        image_path: str,
+        img: (str or Image),
         device: torch.device = torch.device('cpu')) -> str:
 
     # Read image
-    img = read_image(image_path)
+    if type(img) == str:
+        img = read_image(img)
     img_segment1 = get_segment(img, 1)
     img_segment2 = get_segment(img, 2)
     img_segment3 = get_segment(img, 3)
