@@ -29,6 +29,12 @@ Bentuk jantung tampak baik, tidak ditemukan tanda-tanda kardiomegali. Tidak tamp
 Done!
 ```
 
+## Local Deployment
+To run local deployment, please execute this command.
+```
+python gradio-server.py --port 8080
+```
+
 ## Contributors
 1. Arief Purnama Muharram
 2. Hollyana Puteri Haryono
