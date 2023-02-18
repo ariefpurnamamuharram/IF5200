@@ -1,5 +1,4 @@
 import argparse
-import torch
 import gradio as gr
 from engine.report import generate_report
 
