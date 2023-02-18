@@ -22,7 +22,7 @@ class ToTensorTransform:
 
         self.transform = transform
 
-    def transform(image: Image):
+    def transform(self, image: Image):
 
         # Transform the image
         img = self.transform(image)
