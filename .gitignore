@@ -1,6 +1,5 @@
 autoformat.sh
 install-package.sh
-experiments.ipynb
 
 .ipynb_checkpoints/
 datasets/
