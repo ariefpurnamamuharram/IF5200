@@ -45,6 +45,11 @@ class TrainUtils:
         else:
             self.device = torch.device('cpu')
             print('Using CPU!')
+            
+    def get_model(self):
+        
+        # Return the model object
+        return self.model
 
     def train(self, dataloader, print_log: bool = False):
 

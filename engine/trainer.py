@@ -27,7 +27,6 @@ def build_from_pretrained(pretrained, d_class: int = 2):
 
 
 def train_wrapper(
-        model,
         trainer,
         train_dataloader,
         val_dataloader,
@@ -110,7 +109,7 @@ def train_wrapper(
             fh.write(f'{epoch}\t{train_accuracy}\t{test_accuracy}\n')
 
             # Save model
-            torch.save(model, model_filename)
+            torch.save(trainer.get_model(), model_filename)
             print(f'Model {model_filename} stored!\n')
 
     train_history = pd.DataFrame(
