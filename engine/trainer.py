@@ -5,25 +5,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 import torch
-from torch import nn
 
 
 MODEL_DIR = 'models/'
 LOG_DIR = 'logs/'
-
-
-def build_from_pretrained(pretrained, d_class: int = 2):
-
-    # Load pretrained model
-    model = pretrained
-
-    # Setup final classification layer
-    if d_class <= 1:
-        raise ValueError('Can not less than 2 classes!')
-    else:
-        model.fc = nn.LazyLinear(d_class)
-
-    return model
 
 
 def train_wrapper(
