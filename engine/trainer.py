@@ -32,8 +32,10 @@ def train_wrapper(
     filename_model = os.path.join(model_path, saved_model_name)
     filename_log = os.path.join(log_path, log_name)
     filename_fig = os.path.join(log_path, f'{log_name.split(".")[0]}.png')
-    filename_item_result_val_dataset = os.path.join(log_path, f'item_result_val_dataset_{log_name.split(".")[0]}.csv')
-    filename_item_result_test_dataset = os.path.join(log_path, f'item_result_test_dataset_{log_name.split(".")[0]}.csv')
+    filename_item_result_val_dataset = os.path.join(
+        log_path, f'item_result_val_dataset_{log_name.split(".")[0]}.csv')
+    filename_item_result_test_dataset = os.path.join(
+        log_path, f'item_result_test_dataset_{log_name.split(".")[0]}.csv')
 
     train_history = []
 

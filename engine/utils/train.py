@@ -46,9 +46,9 @@ class TrainUtils:
         else:
             self.device = torch.device('cpu')
             print('Using CPU!')
-            
+
     def get_model(self):
-        
+
         # Return the model object
         return self.model
 
@@ -67,7 +67,8 @@ class TrainUtils:
             model.train()
 
             # Send tensors to the device
-            image, label, model = image.to(device), label.to(device), model.to(device)
+            image, label, model = image.to(
+                device), label.to(device), model.to(device)
 
             # Make predictions
             pred = model(image)
@@ -122,27 +123,31 @@ class TrainUtils:
             for filename, image, label in tqdm(dataloader):
 
                 # Send tensors to the device
-                image, label, model = image.to(device), label.to(device), model.to(device)
+                image, label, model = image.to(
+                    device), label.to(device), model.to(device)
 
                 # Make predictions
                 pred = model(image)
-                
+
                 global_filename += filename
                 global_pred += pred.argmax(1).tolist()
-                global_y += label.tolist()              
+                global_y += label.tolist()
 
                 test_loss += loss_fn(pred, label).item()
-                correct += (pred.argmax(1) == label).type(torch.float).sum().item()
+                correct += (pred.argmax(1) ==
+                            label).type(torch.float).sum().item()
 
         for idx, name in enumerate(global_filename):
             global_result.append([name, global_y[idx], global_pred[idx]])
-        global_result = pd.DataFrame(global_result, columns=['filename', 'label', 'pred'])
-        
+        global_result = pd.DataFrame(
+            global_result, columns=[
+                'filename', 'label', 'pred'])
+
         # Print item result
         if print_item_result:
             print('\nItem result:')
             print(global_result)
-        
+
         # Print confusion matrix:
         if print_conf_matrix:
             print('\nConfusion matrix:')
@@ -152,7 +157,7 @@ class TrainUtils:
         if print_clf_report:
             print('\nClassification report:')
             print(classification_report(global_y, global_pred))
-            
+
         # Export item_result
         if export_item_result:
             global_result.to_csv(filename_item_result, index=False)
