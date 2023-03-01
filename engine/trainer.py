@@ -29,9 +29,9 @@ def train_wrapper(
     if not os.path.exists(log_path):
         os.makedirs(log_path)
 
-    filename_model = os.path.join(model_path, saved_model_name)
-    filename_log = os.path.join(log_path, log_name)
-    filename_fig = os.path.join(log_path, f'{log_name.split(".")[0]}.png')
+    filename_model = os.path.join(model_path, f'{saved_model_name}.pth')
+    filename_log = os.path.join(log_path, f'log_{log_name}.txt')
+    filename_fig = os.path.join(log_path, f'fig_{log_name.split(".")[0]}.png')
     filename_item_result_val_dataset = os.path.join(
         log_path, f'item_result_val_dataset_{log_name.split(".")[0]}.csv')
     filename_item_result_test_dataset = os.path.join(
@@ -150,7 +150,7 @@ def train_wrapper(
     plt.ylabel('Accuracy', fontdict={
         'fontsize': 10
     })
-    plt.savefig(filename_log)
+    plt.savefig(filename_fig)
     plt.show()
 
     print('Train report:')
