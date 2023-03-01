@@ -1,3 +1,4 @@
+import pandas as pd
 import torch
 from torch import nn, optim
 from tqdm import tqdm
@@ -60,19 +61,19 @@ class TrainUtils:
 
         loss_history = []
 
-        for batch, (X, y) in enumerate(tqdm(dataloader)):
+        for batch, (_, image, label) in enumerate(tqdm(dataloader)):
 
             # Switch to train mode
             model.train()
 
             # Send tensors to the device
-            X, y, model = X.to(device), y.to(device), model.to(device)
+            image, label, model = image.to(device), label.to(device), model.to(device)
 
             # Make predictions
-            pred = model(X)
+            pred = model(image)
 
             # Compute loss (error)
-            loss = loss_fn(pred, y)
+            loss = loss_fn(pred, label)
 
             # Backpropagation
             optimizer.zero_grad()
@@ -97,8 +98,11 @@ class TrainUtils:
             self,
             dataloader,
             print_log: bool = False,
-            conf_matrix: bool = False,
-            clf_report: bool = False):
+            print_item_result: bool = False,
+            print_conf_matrix: bool = False,
+            print_clf_report: bool = False,
+            export_item_result: bool = False,
+            filename_item_result: str = 'item_result.csv'):
 
         model = self.model
         loss_fn = self.loss_fn
@@ -111,33 +115,47 @@ class TrainUtils:
         model.eval()
 
         test_loss, correct = 0, 0
-        global_pred, global_y = [], []
+        global_result, global_filename, global_pred, global_y = [], [], [], []
 
         with torch.no_grad():
 
-            for X, y in tqdm(dataloader):
+            for filename, image, label in tqdm(dataloader):
 
                 # Send tensors to the device
-                X, y, model = X.to(device), y.to(device), model.to(device)
+                image, label, model = image.to(device), label.to(device), model.to(device)
 
                 # Make predictions
-                pred = model(X)
-
+                pred = model(image)
+                
+                global_filename += filename
                 global_pred += pred.argmax(1).tolist()
-                global_y += y.tolist()
+                global_y += label.tolist()              
 
-                test_loss += loss_fn(pred, y).item()
-                correct += (pred.argmax(1) == y).type(torch.float).sum().item()
+                test_loss += loss_fn(pred, label).item()
+                correct += (pred.argmax(1) == label).type(torch.float).sum().item()
 
+        for idx, name in enumerate(global_filename):
+            global_result.append([name, global_y[idx], global_pred[idx]])
+        global_result = pd.DataFrame(global_result, columns=['filename', 'label', 'pred'])
+        
+        # Print item result
+        if print_item_result:
+            print('\nItem result:')
+            print(global_result)
+        
         # Print confusion matrix:
-        if conf_matrix:
+        if print_conf_matrix:
             print('\nConfusion matrix:')
             print(confusion_matrix(global_y, global_pred))
 
         # Print classification report
-        if clf_report:
+        if print_clf_report:
             print('\nClassification report:')
             print(classification_report(global_y, global_pred))
+            
+        # Export item_result
+        if export_item_result:
+            global_result.to_csv(filename_item_result, index=False)
 
         test_loss /= num_batches
         correct /= size

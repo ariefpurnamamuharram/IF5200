@@ -29,16 +29,18 @@ def train_wrapper(
     if not os.path.exists(log_path):
         os.makedirs(log_path)
 
-    model_filename = os.path.join(model_path, saved_model_name)
-    log_filename = os.path.join(log_path, log_name)
-    fig_filename = os.path.join(log_path, f'{log_name.split(".")[0]}.png')
+    filename_model = os.path.join(model_path, saved_model_name)
+    filename_log = os.path.join(log_path, log_name)
+    filename_fig = os.path.join(log_path, f'{log_name.split(".")[0]}.png')
+    filename_item_result_val_dataset = os.path.join(log_path, f'item_result_val_dataset_{log_name.split(".")[0]}.csv')
+    filename_item_result_test_dataset = os.path.join(log_path, f'item_result_test_dataset_{log_name.split(".")[0]}.csv')
 
     train_history = []
 
     last_train_acc = 0.0
     last_test_acc = 0.0
 
-    with open(log_filename, 'w') as fh:
+    with open(filename_log, 'w') as fh:
 
         print('Begin training!\n')
 
@@ -60,7 +62,23 @@ def train_wrapper(
 
             # Evaluate model: get training accuracy
             start = timer.time()
-            train_accuracy = trainer.test(val_dataloader, print_log=False)
+            if epoch == (epochs - 1):
+                train_accuracy = trainer.test(
+                    val_dataloader,
+                    print_log=False,
+                    print_item_result=True,
+                    print_conf_matrix=True,
+                    print_clf_report=True,
+                    export_item_result=True,
+                    filename_item_result=filename_item_result_val_dataset)
+            else:
+                train_accuracy = trainer.test(
+                    val_dataloader,
+                    print_log=False,
+                    print_item_result=False,
+                    print_conf_matrix=False,
+                    print_clf_report=False,
+                    export_item_result=False)
             last_train_acc = train_accuracy
 
             # Get elapsed time
@@ -73,14 +91,19 @@ def train_wrapper(
                 test_accuracy = trainer.test(
                     test_dataloader,
                     print_log=False,
-                    conf_matrix=True,
-                    clf_report=True)
+                    print_item_result=True,
+                    print_conf_matrix=True,
+                    print_clf_report=True,
+                    export_item_result=True,
+                    filename_item_result=filename_item_result_test_dataset)
             else:
                 test_accuracy = trainer.test(
                     test_dataloader,
                     print_log=False,
-                    conf_matrix=False,
-                    clf_report=False)
+                    print_item_result=False,
+                    print_conf_matrix=False,
+                    print_clf_report=False,
+                    export_item_result=False)
             last_test_acc = test_accuracy
 
             # Get elapsed time
@@ -94,8 +117,8 @@ def train_wrapper(
             fh.write(f'{epoch}\t{train_accuracy}\t{test_accuracy}\n')
 
             # Save model
-            torch.save(trainer.get_model(), model_filename)
-            print(f'Model {model_filename} stored!\n')
+            torch.save(trainer.get_model(), filename_model)
+            print(f'Model {filename_model} stored!\n')
 
     train_history = pd.DataFrame(
         train_history, columns=[
@@ -125,7 +148,7 @@ def train_wrapper(
     plt.ylabel('Accuracy', fontdict={
         'fontsize': 10
     })
-    plt.savefig(fig_filename)
+    plt.savefig(filename_log)
     plt.show()
 
     print('Train report:')

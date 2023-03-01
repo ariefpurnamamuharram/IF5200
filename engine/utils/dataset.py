@@ -28,4 +28,4 @@ class CustomDataset(Dataset):
 
         label = data['label']
 
-        return (image, label)
+        return (filename, image, label)
