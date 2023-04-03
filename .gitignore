@@ -1,7 +1,5 @@
-autoformat.sh
-install-package.sh
-
 .ipynb_checkpoints/
+.idea/
 datasets/
 enabled/
 env/
