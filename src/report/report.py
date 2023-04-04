@@ -66,12 +66,11 @@ class RadiologyReport:
         model_effusion = torch.load(os.path.join(models_dir, 'model_effusion.pth'), map_location=device)
 
         # Make inferences
-        inference = InferenceUtils(device=device)
-        result_cardiomegaly = inference \
-            .make_prediction(model_cardiomegaly, img_segment2.unsqueeze(0)) \
+        result_cardiomegaly = InferenceUtils(model=model_cardiomegaly, device=device) \
+            .make_prediction(img_segment2.unsqueeze(0)) \
             .item()
-        result_effusion = inference \
-            .make_prediction(model_effusion, img_segment2.unsqueeze(0)) \
+        result_effusion = InferenceUtils(model=model_effusion, device=device) \
+            .make_prediction(img_segment2.unsqueeze(0)) \
             .item()
 
         # Generate the report

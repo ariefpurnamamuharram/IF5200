@@ -3,21 +3,21 @@ import torch
 
 class InferenceUtils:
 
-    def __init__(self, device: torch.device = torch.device('cpu')):
+    def __init__(self, model, device: torch.device = torch.device('cpu')):
         super(InferenceUtils, self).__init__()
+        self.model = model
         self.device = device
 
-    def make_prediction(self, model, x: torch.Tensor):
+    def make_prediction(self, x: torch.Tensor):
         """
         Args:
-            model: Trained model
             x: Image tensor
 
         Returns:
             Prediction result
         """
 
-        model = model
+        model = self.model
         device = self.device
         print(f'Use device {device}!')
         if not device == torch.device('cpu'):
