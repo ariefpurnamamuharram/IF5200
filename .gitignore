@@ -4,11 +4,9 @@ env/
 
 datasets/
 sys/
-src/__pycache__/
-src/utils/__pycache__/
+src/train/__pycache__/
+src/train/utils/__pycache__/
 
 flagged/
 logs/
 outputs/
-
-experiments.ipynb
