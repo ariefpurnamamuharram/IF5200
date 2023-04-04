@@ -19,9 +19,6 @@ class InferenceUtils:
 
         model = self.model
         device = self.device
-        #print(f'Use device {device}!')
-        #if not device == torch.device('cpu'):
-            #print(f'Device name: {torch.cuda.get_device_name(device)}')
 
         # Switch to eval mode
         model.eval()
