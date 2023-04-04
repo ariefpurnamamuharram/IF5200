@@ -76,8 +76,8 @@ def train_wrapper(
                     val_dataloader,
                     print_log=False,
                     print_clf_result=False,
-                    print_conf_matrix=True,
-                    print_clf_report=True,
+                    print_conf_matrix=False,
+                    print_clf_report=False,
                     export_clf_result=False)
             else:
                 train_accuracy = trainer.test(
