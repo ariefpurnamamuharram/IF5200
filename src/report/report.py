@@ -61,7 +61,7 @@ class RadiologyReport:
         device = torch.device('cuda') if self.use_gpu else torch.device('cpu')
 
         # Load the outputs
-        models_dir = 'system/models'
+        models_dir = 'sys/models'
         model_cardiomegaly = torch.load(os.path.join(models_dir, 'model_cardiomegaly.pth'), map_location=device)
         model_effusion = torch.load(os.path.join(models_dir, 'model_effusion.pth'), map_location=device)
 

@@ -15,7 +15,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # Gradio
-    SAMPLES_DIR = 'system/samples'
+    SAMPLES_DIR = 'sys/samples'
     radiology_report = RadiologyReport(use_gpu=args.use_gpu)
     gr \
         .Interface(fn=radiology_report.produce_report,
