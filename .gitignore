@@ -1,11 +1,14 @@
 .ipynb_checkpoints/
 .idea/
-datasets/
-enabled/
 env/
-engine/__pycache__/
-engine/utils/__pycache__/
+
+datasets/
+system/
+src/__pycache__/
+src/utils/__pycache__/
+
 flagged/
 logs/
-models/
+outputs/
 
+experiments.ipynb
