@@ -1,0 +1,14 @@
+.ipynb_checkpoints/
+.idea/
+env/
+
+src/__pycache__/
+src/report/__pycache__/
+src/report/utils/__pycache__/
+src/train/__pycache__/
+src/train/utils/__pycache__/
+src/utils/__pycache__/
+
+experiments.ipynb
+evaluation.ipynb
+
