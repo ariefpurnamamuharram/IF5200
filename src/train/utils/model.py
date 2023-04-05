@@ -1,3 +1,6 @@
+import os
+import shutil
+
 from torch import nn
 
 
@@ -36,3 +39,15 @@ def build_model(
 
     # Return the model
     return model
+
+
+def publish_model(model_path: str, finding_name: str, dst_dir: str = '../../../sys/models'):
+    finding_name = finding_name.lower()
+    if finding_name not in ['cardiomegaly', 'effusion']:
+        raise ValueError('Finding name is not in list!')
+
+    dst_model_name = f'model_{finding_name}.pth'
+    dst_path = os.path.join(dst_dir, dst_model_name)
+
+    # Copy file to destination folder
+    shutil.copyfile(model_path, dst_path)
