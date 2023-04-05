@@ -41,7 +41,7 @@ def build_model(
     return model
 
 
-def publish_model(model_path: str, finding_name: str, dst_dir: str = '../../../sys/models'):
+def publish_model(model_path: str, finding_name: str, dst_dir: str = ''):
     finding_name = finding_name.lower()
     if finding_name not in ['cardiomegaly', 'effusion']:
         raise ValueError('Finding name is not in list!')
