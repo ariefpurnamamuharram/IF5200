@@ -1,4 +1,5 @@
-model_cardiomegaly.pth
-model_effusion.pth
+*
+!model_cardiomegaly.pth
+!model_effusion.pth
 !.gitignore
 !README.md
