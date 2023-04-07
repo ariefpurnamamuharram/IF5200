@@ -14,7 +14,7 @@ class RadiologyReport:
         self.use_gpu = use_gpu
 
     @staticmethod
-    def __build_report_text(cardiomegaly: int = 0, effusion: int = 0) -> str:
+    def __build_report_text(cardiomegaly: int = 0, effusion: int = 0, consolidation: int = 0) -> str:
         """
         Args:
             cardiomegaly: Presence of cardiomegaly finding
@@ -64,6 +64,7 @@ class RadiologyReport:
         models_dir = 'sys/models'
         model_cardiomegaly = torch.load(os.path.join(models_dir, 'model_cardiomegaly.pth'), map_location=device)
         model_effusion = torch.load(os.path.join(models_dir, 'model_effusion.pth'), map_location=device)
+        model_consolidation = torch.load(os.path.join(models_dir, 'model_consolidation.pth'), map_location=device)
 
         # Make inferences
         result_cardiomegaly = InferenceUtils(model=model_cardiomegaly, device=device) \
@@ -72,9 +73,12 @@ class RadiologyReport:
         result_effusion = InferenceUtils(model=model_effusion, device=device) \
             .make_prediction(img_segment2.unsqueeze(0)) \
             .item()
+        result_consolidation = InferenceUtils(model=model_consolidation, device=device) \
+            .make_prediction(img_segment3.unsqueeze(0)) \
+            .item()
 
         # Generate the report
-        report = self.__build_report_text(result_cardiomegaly, result_effusion)
+        report = self.__build_report_text(result_cardiomegaly, result_effusion, result_consolidation)
 
         # Return the report
         return report

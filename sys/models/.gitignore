@@ -1,5 +1,6 @@
 *
 !model_cardiomegaly.pth
 !model_effusion.pth
+!model_consolidation.pth
 !.gitignore
 !README.md

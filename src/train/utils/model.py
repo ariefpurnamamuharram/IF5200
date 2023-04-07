@@ -43,7 +43,7 @@ def build_model(
 
 def publish_model(model_path: str, finding_name: str, dst_dir: str = ''):
     finding_name = finding_name.lower()
-    if finding_name not in ['cardiomegaly', 'effusion']:
+    if finding_name not in ['cardiomegaly', 'effusion', 'consolidation']:
         raise ValueError('Finding name is not in list!')
 
     dst_model_name = f'model_{finding_name}.pth'
