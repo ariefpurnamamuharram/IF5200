@@ -5,7 +5,7 @@ Electrical Engineering and Informatics, Institut Teknologi Bandung.
 
 ## Before Having Fun
 
-Please install the required packages describe in the `requirements.txt` file.
+Please install the required packages describe in the `requirements.txt` file. The default production models located in `sys/models` are stored using Git LFS. You may need to do `git lfs pull` to pull out the models.
 
 ## Local Deployment
 
