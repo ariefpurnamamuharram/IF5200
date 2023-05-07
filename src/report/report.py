@@ -27,7 +27,8 @@ class RadiologyReport:
         try:
             report_text = f'Pada foto radiologi dada yang diterima diperoleh temuan-temuan sebagai berikut: ' \
                           f'{"Bentuk jantung tampak baik, tidak ditemukan tanda-tanda kardiomegali" if bool(cardiomegaly) else "Terdapat gambaran kardiomegali, CTR > 50%"}. ' \
-                          f'{"Tidak tampak gambaran efusi" if bool(effusion) else "Tampak gambaran efusi"} pada lapang paru.'
+                          f'{"Tidak tampak gambaran efusi" if bool(effusion) else "Tampak gambaran efusi"} pada lapang paru. ' \
+                          f'{"Tidak ditemukan tanda-tanda konsolidasi" if bool(consolidation) else "Ditemukan tanda-tanda konsolidasi"} pada lapang paru. '
         except BaseException:
             raise ValueError('Report error!')
 
