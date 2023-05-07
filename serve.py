@@ -14,14 +14,27 @@ if __name__ == '__main__':
                         required=False, help='Use GPU device')
     args = parser.parse_args()
 
+
+    # Get image samples
+    def get_image_samples() -> list:
+        samples_dir = 'sys/samples'
+        items = os.listdir(samples_dir)
+        images = []
+        for item in items:
+            if os.path.splitext(item)[1] in ['.jpg', '.jpeg', '.png']:
+                images.append(os.path.join(samples_dir, item))
+            else:
+                continue
+        return images
+
+
     # Gradio
-    SAMPLES_DIR = 'sys/samples'
     radiology_report = RadiologyReport(use_gpu=args.use_gpu)
     gr \
         .Interface(fn=radiology_report.produce_report,
                    inputs=[gr.Image(type='pil')],
                    outputs='text',
-                   examples=list(map(lambda x: os.path.join(SAMPLES_DIR, x), os.listdir(SAMPLES_DIR))),
+                   examples=get_image_samples(),
                    title='Automated CXR Report Generator',
                    allow_flagging='never') \
         .launch(server_port=args.port)
